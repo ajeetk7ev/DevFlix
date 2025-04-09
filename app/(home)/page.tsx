@@ -26,13 +26,15 @@ export default function Home(){
                 <CompanySlider/>
             </section>
 
+              <section>
+                <Features/>
+            </section>
+
             <section>
                 <Instructor/>
             </section>
 
-            <section>
-                <Features/>
-            </section>
+          
 
             <section>
             <JoinDevFlix/>

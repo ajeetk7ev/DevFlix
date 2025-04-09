@@ -4,25 +4,28 @@ import { FaYoutube } from "react-icons/fa6";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import webDevThumbnail from '@/public/thumbnail/webdev.jpg'
+import { BrainCircuit, AlarmClockCheck, MessageCircle } from "lucide-react";
+
 
 const features = [
   {
     title: "AI-Powered Roadmaps",
     description:
       "Generate personalized learning paths using AI based on your goals and progress.",
-    icon: "/icons/ai.svg",
+    icon: BrainCircuit,
   },
   {
     title: "Real-Time Contest Alerts",
     description:
       "Never miss a coding contest again. Stay updated with alerts from Codeforces, LeetCode, and more.",
-    icon: "/icons/contest.svg",
+    icon: AlarmClockCheck,
   },
   {
     title: "Peer-to-Peer Doubt Solving",
     description:
       "Chat and solve doubts instantly with the DevFlix community.",
-    icon: "/icons/chat.svg",
+    icon: MessageCircle,
   },
 ];
 
@@ -32,21 +35,21 @@ const featuredVideos = [
     channel: "Hitesh Choudhary",
     duration: "2hr 15min",
     videoUrl: "https://www.youtube.com/watch?v=ldYcgPKEZC8",
-    thumbnail: "/videos/system-design.jpg",
+    thumbnail: webDevThumbnail,
   },
   {
     title: "DSA Roadmap for 2025",
     channel: "Love Babbar",
     duration: "1hr 40min",
     videoUrl: "https://www.youtube.com/watch?v=5_5oE5lgrhw",
-    thumbnail: "/videos/dsa-roadmap.jpg",
+    thumbnail: webDevThumbnail,
   },
   {
     title: "Mastering React in 2025",
     channel: "Code with Harry",
     duration: "1hr 20min",
     videoUrl: "https://www.youtube.com/watch?v=bMknfKXIFA8",
-    thumbnail: "/videos/react-course.jpg",
+    thumbnail: webDevThumbnail,
   },
 ];
 
@@ -61,29 +64,36 @@ export default function Features() {
           Everything you need to learn smart, grow fast, and crack top tech jobs.
         </p>
 
-        <div className="grid md:grid-cols-3 gap-10 mb-24">
+        <div className="grid md:grid-cols-3 gap-8 mb-24">
           {features.map((feature, idx) => (
             <motion.div
               key={idx}
-              whileHover={{ scale: 1.05 }}
-              className="bg-white dark:bg-slate-900 p-6 rounded-3xl shadow-lg hover:shadow-2xl transition-all border border-slate-100 dark:border-slate-800 text-center"
+              whileHover={{ scale: 1.03 }}
+              transition={{ type: "spring", stiffness: 300 }}
+              className="group bg-white dark:bg-slate-900 p-8 rounded-2xl shadow-sm hover:shadow-xl border border-slate-200 dark:border-slate-800 hover:border-slate-500 transition-all duration-300"
             >
-              <Image
-                src={feature.icon}
-                alt={feature.title}
-                width={60}
-                height={60}
-                className="mx-auto mb-4"
-              />
-              <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-2">
+              <div
+                className="flex items-center justify-center w-14 h-14 rounded-xl 
+                   bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300
+                   group-hover:bg-slate-700 group-hover:text-white
+                   dark:group-hover:bg-slate-600 dark:group-hover:text-white
+                   mx-auto mb-5 transition-all"
+              >
+                <feature.icon className="w-6 h-6" />
+              </div>
+
+              <h3 className="text-lg font-semibold text-gray-800 dark:text-white mb-2 group-hover:text-slate-700 dark:group-hover:text-slate-300 transition-colors">
                 {feature.title}
               </h3>
-              <p className="text-gray-600 dark:text-gray-300 text-sm">
+
+              <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
                 {feature.description}
               </p>
             </motion.div>
           ))}
         </div>
+
+
 
         <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-10 text-center">
           Featured Learning Videos
