@@ -1,11 +1,11 @@
 import Footer from "@/components/footer/footer";
 import CompanySlider from "@/components/home/company-slider";
 import JoinDevFlix from "@/components/home/CTASection";
-import Features from "@/components/home/features";
+import Features from "@/components/home/features-section";
 import { Navbar } from "@/components/home/header/navbar";
-import Hero from "@/components/home/hero/hero";
-import WhyDevFlix from "@/components/home/hero/why-devflix";
-import Instructor from "@/components/home/instructor";
+import Hero from "@/components/home/hero-section";
+import WhyDevFlix from "@/components/home/why-devflix";
+import Instructor from "@/components/home/instructor-section";
 
 
 export default function Home(){

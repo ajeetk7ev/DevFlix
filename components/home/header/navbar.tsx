@@ -1,31 +1,43 @@
-'use client'
+"use client"
 
 import { useState } from "react"
 import Link from "next/link"
+import { signIn, signOut, useSession } from "next-auth/react"
 import { Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { ModeToggle } from "./mode-toggle"
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@/components/ui/avatar"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+
 
 export function Navbar() {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
+  const { data: session, status } = useSession();
+  console.log("Session status is ",status);
+
 
   const navLinks = [
     { href: "/", label: "Home" },
     { href: "/course", label: "Course" },
-    { href: "/about", label: "About" },
-    { href: "/contact", label: "ContactUs" },
+    { href: "/about", label: "About Us" },
+    { href: "/contact", label: "Contact Us" },
   ]
 
   return (
     <header className="sticky top-0 z-50 w-full bg-white dark:bg-slate-950 shadow-sm border-b border-slate-200 dark:border-slate-800 transition-all">
       <div className="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
-        
-        {/* Logo */}
-        <h1 className="text-2xl font-bold text-slate-900 dark:text-white">
-          DevFlix
-        </h1>
+        <h1 className="text-2xl font-bold text-slate-900 dark:text-white">DevFlix</h1>
 
-        {/* Desktop Nav */}
+        {/* Desktop nav */}
         <nav className="hidden md:flex items-center gap-6">
           {navLinks.map((link) => (
             <Link
@@ -38,16 +50,35 @@ export function Navbar() {
           ))}
         </nav>
 
-        {/* Right Actions */}
+        {/* Desktop Right Actions */}
         <div className="hidden md:flex items-center gap-4">
           <ModeToggle />
-          <div className="space-x-2">
-            <Button variant="default">Signin</Button>
-            <Button variant="secondary">Signup</Button>
-          </div>
+          {!session ? (
+            <Button variant="default" onClick={() => signIn()}>Signin</Button>
+          ) : (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Avatar className="w-[40px] h-[40px] cursor-pointer">
+                  <AvatarImage
+                    src={session.user?.image || "https://github.com/shadcn.png"}
+                    alt={session.user?.name || "User"}
+                  />
+                  <AvatarFallback>{session.user?.name?.charAt(0) || "U"}</AvatarFallback>
+                </Avatar>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-48 mt-2">
+                <DropdownMenuItem asChild>
+                  <Link href="/dashboard/profile">Dashboard</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => signOut()}>
+                  Sign out
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          )}
         </div>
 
-        {/* Mobile Menu Toggle */}
+        {/* Mobile Menu Button */}
         <div className="md:hidden">
           <button
             onClick={() => setIsOpen(!isOpen)}
@@ -59,7 +90,7 @@ export function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Dropdown Menu */}
+      {/* Mobile Dropdown */}
       {isOpen && (
         <div className="md:hidden bg-white dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800 px-6 py-4 space-y-4">
           {navLinks.map((link) => (
@@ -72,10 +103,25 @@ export function Navbar() {
               {link.label}
             </Link>
           ))}
+
           <div className="pt-4 flex flex-col gap-3">
             <ModeToggle />
-            <Button variant="default">Signin</Button>
-            <Button variant="secondary">Signup</Button>
+            {!session ? (
+              <Button variant="default" onClick={() => signIn()}>
+                Signin
+              </Button>
+            ) : (
+              <>
+                <Button variant="secondary" asChild>
+                  <Link href="/dashboard" onClick={() => setIsOpen(false)}>
+                    Dashboard
+                  </Link>
+                </Button>
+                <Button variant="outline" onClick={() => signOut()}>
+                  Sign out
+                </Button>
+              </>
+            )}
           </div>
         </div>
       )}
