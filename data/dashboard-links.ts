@@ -1,13 +1,8 @@
-import { VscAccount } from "react-icons/vsc"
-import { FaLaptopCode } from "react-icons/fa"
-import { MdOutlineEmojiEvents } from "react-icons/md"
-import { BsDiagram3 } from "react-icons/bs"
-import { RiBookOpenLine } from "react-icons/ri"
-
-export const ACCOUNT_TYPE = {
-  USER: "user",
-  ADMIN: "admin",
-} as const
+import { VscAccount } from "react-icons/vsc";
+import { FaLaptopCode } from "react-icons/fa";
+import { MdOutlineEmojiEvents, MdOutlineAddBox } from "react-icons/md";
+import { BsDiagram3 } from "react-icons/bs";
+import { RiBookOpenLine } from "react-icons/ri";
 
 export const sidebarLinks = [
   {
@@ -40,4 +35,10 @@ export const sidebarLinks = [
     path: "/dashboard/dsa-sheets",
     icon: BsDiagram3,
   },
-]
+  {
+    id: 6,
+    name: "Contribute",
+    path: "/dashboard/contribute",
+    icon: MdOutlineAddBox,
+  },
+];
